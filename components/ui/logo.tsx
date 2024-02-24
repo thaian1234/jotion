@@ -1,20 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export function Logo() {
+interface LogoProps {
+	size: number;
+}
+
+export function Logo({ size }: LogoProps) {
 	return (
-		<Link href={"/"} className="hidden md:flex items-center gap-x-2">
+		<Link href="/" className="flex flex-col items-center gap-x-2">
 			<Image
 				src="/logo.svg"
-				width={40}
-				height={40}
+				width={size}
+				height={size}
 				alt="Logo"
 				className="dark:hidden"
 			/>
 			<Image
 				src="/logo-dark.svg"
-				width={40}
-				height={40}
+				width={size}
+				height={size}
 				alt="Logo"
 				className="hidden dark:block"
 			/>

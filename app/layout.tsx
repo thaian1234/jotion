@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { fontPoppins } from "@/fonts";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ConvexClientProvider } from "@/providers/convex-provider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
 	title: "Jotion",
@@ -30,24 +31,25 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<ConvexClientProvider>
-			<html lang="en">
-				<body
-					className={cn(
-						"bg-background font-sans antialiased",
-						fontPoppins.variable
-					)}
-				>
+		<html lang="en">
+			<body
+				className={cn(
+					"bg-background font-sans antialiased",
+					fontPoppins.variable
+				)}
+			>
+				<ConvexClientProvider>
 					<ThemeProvider
 						attribute="class"
 						defaultTheme="system"
 						enableSystem
 						storageKey="jotion-theme-2"
 					>
+						<Toaster position="bottom-center" />
 						{children}
 					</ThemeProvider>
-				</body>
-			</html>
-		</ConvexClientProvider>
+				</ConvexClientProvider>
+			</body>
+		</html>
 	);
 }
