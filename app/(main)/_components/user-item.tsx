@@ -23,7 +23,7 @@ export function UserItem() {
 				>
 					<div className="gap-x-2 flex items-center max-w-[150px]">
 						<Avatar className="size-5">
-							<AvatarImage src={user?.imageUrl} />
+							<AvatarImage src={user?.imageUrl} alt="Avatar" />
 						</Avatar>
 						<span className="text-start font-medium truncate">
 							{user?.fullName} &apos;s Jotion

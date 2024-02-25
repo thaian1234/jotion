@@ -10,6 +10,7 @@ import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { useTransition } from "react";
 import { toast } from "sonner";
+import { useDarkMode } from "usehooks-ts";
 
 export default function DocumentsPage() {
 	const { user, isLoaded } = useUser();
@@ -36,6 +37,7 @@ export default function DocumentsPage() {
 				width="300"
 				alt="Empty"
 				className="dark:hidden"
+				priority
 			/>
 			<Image
 				src="/empty-dark.png"
@@ -43,6 +45,7 @@ export default function DocumentsPage() {
 				width="300"
 				alt="Empty"
 				className="hidden dark:block"
+				priority
 			/>
 			{!isLoaded ? (
 				<Skeleton className="w-52 h-10" />

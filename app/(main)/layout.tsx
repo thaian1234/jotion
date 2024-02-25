@@ -1,9 +1,9 @@
-import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, auth } from "@clerk/nextjs";
 import { Navigation } from "./_components/navigation";
-import { redirect } from "next/navigation";
 import { Loading } from "@/components/auth/loading";
+import { redirect } from "next/navigation";
 
-export default function Mainlayout({
+export default async function Mainlayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
