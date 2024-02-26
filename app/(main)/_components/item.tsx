@@ -109,7 +109,7 @@ export function Item({
 			{!!id && (
 				<div
 					role="button"
-					className="h-full rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 mr-1"
+					className="h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-1"
 					onClick={handleExpand}
 				>
 					<ChevronIcon className="size-4 shrink-0 text-muted-foreground/50" />
@@ -135,7 +135,7 @@ export function Item({
 							onClick={(e) => e.stopPropagation()}
 						>
 							<Button
-								className="opacity-0 group-hover:opacity-100 size-auto ml-auto rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 p-1"
+								className="opacity-0 group-hover:opacity-100 size-auto ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 p-1"
 								variant={"ghost"}
 							>
 								<MoreHorizontal className="size-4 text-muted-foreground" />
@@ -174,7 +174,7 @@ export function Item({
 					</DropdownMenu>
 					<Button
 						variant="ghost"
-						className="opacity-0 group-hover:opacity-100 size-auto ml-auto rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 p-1"
+						className="opacity-0 group-hover:opacity-100 size-auto ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 p-1"
 						size="icon"
 						onClick={onCreate}
 					>

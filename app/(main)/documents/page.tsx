@@ -10,7 +10,6 @@ import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { useTransition } from "react";
 import { toast } from "sonner";
-import { useDarkMode } from "usehooks-ts";
 
 export default function DocumentsPage() {
 	const { user, isLoaded } = useUser();

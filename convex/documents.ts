@@ -203,3 +203,23 @@ export const remove = mutation({
 		return document;
 	},
 });
+
+export const getSearch = query({
+	async handler(ctx) {
+		const identity = await ctx.auth.getUserIdentity();
+		if (!identity) throw new Error("Unauthenticated");
+		const userId = identity.subject;
+
+		const documents = await ctx.db
+			.query("documents")
+			.withIndex("by_user", (e) => e.eq("userId", userId))
+			.filter((q) => q.eq(q.field("isArchived"), false))
+			.order("desc")
+			.collect()
+			.catch(() => {
+				throw new Error("Cannot get documents");
+			});
+
+		return documents;
+	},
+});

@@ -1,7 +1,7 @@
-import { ClerkLoaded, ClerkLoading, auth } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import { Navigation } from "./_components/navigation";
 import { Loading } from "@/components/auth/loading";
-import { redirect } from "next/navigation";
+import { SearchCommand } from "@/components/search-command";
 
 export default async function Mainlayout({
 	children,
@@ -17,6 +17,7 @@ export default async function Mainlayout({
 				<div className="h-full flex">
 					<Navigation />
 					<main className="flex-1 h-full overflow-y-auto">
+						<SearchCommand />
 						{children}
 					</main>
 				</div>

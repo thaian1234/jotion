@@ -5,6 +5,7 @@ import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { AuthLoading, ConvexReactClient } from "convex/react";
 
 import { Loading } from "@/components/auth/loading";
+import { useIsClient } from "usehooks-ts";
 
 interface ConvexClientProviderProps {
 	children: React.ReactNode;
@@ -17,6 +18,9 @@ const convex = new ConvexReactClient(convexUrl);
 export const ConvexClientProvider = ({
 	children,
 }: ConvexClientProviderProps) => {
+	const isClient = useIsClient();
+	if (!isClient) return <Loading />;
+
 	return (
 		<ClerkProvider>
 			<ConvexProviderWithClerk useAuth={useAuth} client={convex}>

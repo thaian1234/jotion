@@ -5,6 +5,7 @@ import { fontPoppins } from "@/fonts";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ConvexClientProvider } from "@/providers/convex-provider";
 import { Toaster } from "sonner";
+import { ModalProvider } from "@/providers/modal-provider";
 
 export const metadata: Metadata = {
 	title: "Jotion",
@@ -46,6 +47,7 @@ export default function RootLayout({
 						storageKey="jotion-theme-2"
 					>
 						<Toaster position="bottom-center" />
+						<ModalProvider />
 						{children}
 					</ThemeProvider>
 				</ConvexClientProvider>

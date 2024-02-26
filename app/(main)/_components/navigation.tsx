@@ -15,7 +15,7 @@ import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./user-item";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Item } from "./item";
 import { toast } from "sonner";
@@ -26,8 +26,12 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { TrashBox } from "./trash-box";
+import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 
 export function Navigation() {
+	const search = useSearch((state) => state);
+	const settings = useSettings((state) => state);
 	const pathname = usePathname();
 	const isMobile = useMediaQuery("(max-width: 768px)");
 	const createDocument = useMutation(api.documents.createDocument);
@@ -136,8 +140,9 @@ export function Navigation() {
 				<div
 					onClick={collapse}
 					role="buton"
+					aria-description="Collapse button"
 					className={cn(
-						"size-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 absolute top-3 right-2 opacity-0 cursor-pointer group-hover/sidebar:opacity-100 transition",
+						"size-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 cursor-pointer group-hover/sidebar:opacity-100 transition",
 						isMobile && "opacity-100"
 					)}
 				>
@@ -149,14 +154,18 @@ export function Navigation() {
 						label="Search"
 						icon={Search}
 						isSearch
-						onClick={() => {}}
+						onClick={search.onOpen}
 					/>
 					<Item
 						label="New page"
 						icon={PlusCircle}
 						onClick={handleCreateDocument}
 					/>
-					<Item label="Settings" icon={Settings} onClick={() => {}} />
+					<Item
+						label="Settings"
+						icon={Settings}
+						onClick={settings.onOpen}
+					/>
 				</div>
 				<div className="mt-4">
 					<DocumentList />
