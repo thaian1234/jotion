@@ -14,6 +14,7 @@ export function Logo({ size }: LogoProps) {
 				height={size}
 				alt="Logo"
 				className="dark:hidden"
+				priority
 			/>
 			<Image
 				src="/logo-dark.svg"
@@ -21,6 +22,7 @@ export function Logo({ size }: LogoProps) {
 				height={size}
 				alt="Logo"
 				className="hidden dark:block"
+				priority
 			/>
 			<p className="font-semibold">Jotion</p>
 		</Link>

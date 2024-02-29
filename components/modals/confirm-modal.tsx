@@ -25,7 +25,7 @@ export function ConfirmModal({ children, confirm }: ConfirmModalProps) {
 	return (
 		<section onClick={(e) => e.stopPropagation()}>
 			<AlertDialog>
-				<AlertDialogTrigger>{children}</AlertDialogTrigger>
+				<AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
 				<AlertDialogContent>
 					<AlertDialogHeader>
 						<AlertDialogTitle>

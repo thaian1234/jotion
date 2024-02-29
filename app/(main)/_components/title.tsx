@@ -4,7 +4,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
+import { ConvexError } from "convex/values";
 import { startTransition, useRef, useState } from "react";
+import { toast } from "sonner";
 import { useDebounceCallback } from "usehooks-ts";
 
 interface TitleProps {
@@ -13,7 +15,7 @@ interface TitleProps {
 
 export function Title({ initialData }: TitleProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
-	const update = useMutation(api.documents.update);
+	const update = useMutation(api.documents.updateDocument);
 
 	const debounced = useDebounceCallback(onChange, 500);
 	const [isEditing, setIsEditing] = useState(false);
@@ -31,10 +33,20 @@ export function Title({ initialData }: TitleProps) {
 
 	function onChange(e: React.ChangeEvent<HTMLInputElement>) {
 		// setTitle(e.target.value);
+		// startTransition(() => {
+		// 	update({
+		// 		id: initialData._id,
+		// 		title: e.target.value || "Untitled",
+		// 	});
+		// });
 		startTransition(() => {
 			update({
-				id: initialData._id,
-				title: e.target.value || "Untitled",
+				data: {
+					id: initialData._id,
+					title: e.target.value || "Untitled",
+				},
+			}).catch((e) => {
+				if (e instanceof ConvexError) toast.error(e.data);
 			});
 		});
 	}
@@ -56,7 +68,7 @@ export function Title({ initialData }: TitleProps) {
 					onChange={debounced}
 					onKeyDown={onKeyDown}
 					// value={title}
-					defaultValue={initialData.title || "Untitled"}
+					defaultValue={initialData?.title || "Untitled"}
 					className="h-7 px-2 focus-visible:ring-transparent"
 				/>
 			) : (
