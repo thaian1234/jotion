@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { ConvexClientProvider } from "@/providers/convex-provider";
 import { Toaster } from "sonner";
 import { ModalProvider } from "@/providers/modal-provider";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 export const metadata: Metadata = {
 	title: "Jotion",
@@ -40,16 +41,18 @@ export default function RootLayout({
 				)}
 			>
 				<ConvexClientProvider>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						storageKey="jotion-theme-2"
-					>
-						<Toaster position="bottom-center" />
-						<ModalProvider />
-						{children}
-					</ThemeProvider>
+					<EdgeStoreProvider>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="system"
+							enableSystem
+							storageKey="jotion-theme-2"
+						>
+							<Toaster position="bottom-center" />
+							<ModalProvider />
+							{children}
+						</ThemeProvider>
+					</EdgeStoreProvider>
 				</ConvexClientProvider>
 			</body>
 		</html>

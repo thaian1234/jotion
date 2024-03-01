@@ -10,6 +10,7 @@ import { ImageIcon, Smile, X } from "lucide-react";
 import { ElementRef, useRef, useState, useTransition } from "react";
 import { useDebounceCallback } from "usehooks-ts";
 import { toast } from "sonner";
+import { useCoverImage } from "@/hooks/use-cover-image";
 
 interface ToolbarProps {
 	initialData: Preloaded<typeof api.documents.getById>;
@@ -18,6 +19,7 @@ interface ToolbarProps {
 
 export function Toolbar({ initialData, preview }: ToolbarProps) {
 	const document = usePreloadedQuery(initialData);
+	const coverImage = useCoverImage((state) => state);
 	const update = useMutation(api.documents.update);
 	const removeIcon = useMutation(api.documents.removeIcon);
 
@@ -122,7 +124,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
 				)}
 				{!document.coverImage && !preview && (
 					<Button
-						onClick={() => {}}
+						onClick={coverImage.onOpen}
 						className="text-muted-foreground text-xs"
 						variant={"outline"}
 						size={"sm"}

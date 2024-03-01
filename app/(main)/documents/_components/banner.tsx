@@ -43,12 +43,12 @@ export function Banner({ documentId }: BannerProps) {
 			remove({ id: documentId })
 				.then(() => {
 					toast.success("Note deleted");
-					router.replace("/documents");
 				})
 				.catch((e) => {
 					if (e instanceof ConvexError) toast.error(e.data);
 				});
 		});
+		router.replace("/documents");
 	};
 	const onRestore = () => {
 		const promise = restore({ id: documentId });

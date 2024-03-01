@@ -232,7 +232,7 @@ export const getById = query({
 		const identity = await ctx.auth.getUserIdentity();
 		const document = await ctx.db.get(args.documentId);
 
-		if (!document) throw new Error("Not found");
+		if (!document) return null;
 
 		if (document.isPublished && !document.isArchived) {
 			return document;
@@ -301,6 +301,26 @@ export const removeIcon = mutation({
 			.catch(() => {
 				throw new Error("Failed to delete icon");
 			});
+
+		return document;
+	},
+});
+
+export const removeCoverImage = mutation({
+	args: { id: v.id("documents") },
+	async handler(ctx, args) {
+		const identity = await ctx.auth.getUserIdentity();
+		if (!identity) throw new Error("Unauthenticated");
+		const userId = identity.subject;
+
+		const existingDocument = await ctx.db.get(args.id);
+
+		if (!existingDocument) throw new Error("Document not found");
+		if (existingDocument.userId !== userId) throw new Error("Unauthorized");
+
+		const document = await ctx.db.patch(args.id, {
+			coverImage: undefined,
+		});
 
 		return document;
 	},
