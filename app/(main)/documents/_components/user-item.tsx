@@ -1,5 +1,3 @@
-"use client";
-
 import { ChevronsLeftRight } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -36,7 +34,6 @@ export function UserItem() {
 				className="w-80"
 				align="start"
 				alignOffset={11}
-				forceMount
 			>
 				<div className="flex flex-col space-y-4 p-2">
 					<p className="text-xs font-medium leading-none text-muted-foreground">
@@ -55,12 +52,17 @@ export function UserItem() {
 						</div>
 					</div>
 				</div>
+
 				<DropdownMenuSeparator />
-				<DropdownMenuItem
-					className="w-full cursor-pointer text-muted-foreground"
-					asChild
-				>
-					<SignOutButton>Log out</SignOutButton>
+				<DropdownMenuItem className="w-full text-muted-foreground">
+					<Button
+						asChild
+						className="size-full justify-start"
+						variant={"ghost"}
+						size="icon"
+					>
+						<SignOutButton>Log out</SignOutButton>
+					</Button>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

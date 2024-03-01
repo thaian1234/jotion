@@ -27,7 +27,7 @@ import {
 import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
-import { Navbar } from "./nav-bar";
+import { Navbar } from "./navbar";
 
 export function Navigation() {
 	const search = useSearch((state) => state);

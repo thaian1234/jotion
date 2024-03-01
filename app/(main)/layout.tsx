@@ -1,5 +1,5 @@
 import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
-import { Navigation } from "./_components/navigation";
+import { Navigation } from "./documents/_components/navigation";
 import { Loading } from "@/components/auth/loading";
 import { SearchCommand } from "@/components/search-command";
 

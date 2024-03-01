@@ -8,8 +8,6 @@ import { useState } from "react";
 import { Item, ItemSkeleton } from "./item";
 import { cn } from "@/lib/utils";
 import { FileIcon } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
 
 interface DocumentListProps {
 	parentDocumentId?: Id<"documents">;

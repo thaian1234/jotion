@@ -15,7 +15,7 @@ interface TitleProps {
 
 export function Title({ initialData }: TitleProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
-	const update = useMutation(api.documents.updateDocument);
+	const update = useMutation(api.documents.update);
 
 	const debounced = useDebounceCallback(onChange, 500);
 	const [isEditing, setIsEditing] = useState(false);
@@ -41,10 +41,8 @@ export function Title({ initialData }: TitleProps) {
 		// });
 		startTransition(() => {
 			update({
-				data: {
-					id: initialData._id,
-					title: e.target.value || "Untitled",
-				},
+				id: initialData._id,
+				title: e.target.value || "Untitled",
 			}).catch((e) => {
 				if (e instanceof ConvexError) toast.error(e.data);
 			});

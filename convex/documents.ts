@@ -42,7 +42,7 @@ export const getSidebar = query({
 		if (!identity) throw new Error("Unauthenticated");
 		const userId = identity.subject;
 
-		const docuents = await ctx.db
+		const document = await ctx.db
 			.query("documents")
 			.withIndex("by_user_parent", (q) =>
 				q.eq("userId", userId).eq("parentDocument", args.parentDocument)
@@ -51,10 +51,10 @@ export const getSidebar = query({
 			.order("desc")
 			.collect()
 			.catch(() => {
-				throw new Error("Failed to get documents");
+				return [];
 			});
 
-		return docuents;
+		return document;
 	},
 });
 
@@ -239,10 +239,10 @@ export const getById = query({
 		}
 
 		if (!identity) {
-			throw new Error("Unauthenticated");
+			return null;
 		}
 		const userId = identity.subject;
-		if (document.userId !== userId) throw new Error("Unauthorized");
+		if (document.userId !== userId) return null;
 
 		return document;
 	},
@@ -273,6 +273,35 @@ export const update = mutation({
 		const document = await ctx.db.patch(args.id, { ...rest }).catch(() => {
 			throw new Error("Failed to update document");
 		});
+		return document;
+	},
+});
+
+export const removeIcon = mutation({
+	args: { id: v.id("documents") },
+	async handler(ctx, args) {
+		const identity = await ctx.auth.getUserIdentity();
+		if (!identity) throw new Error("Unauthenticated");
+		const userId = identity.subject;
+
+		const existingDocument = await ctx.db.get(args.id);
+
+		if (!existingDocument) {
+			throw new Error("Document not found");
+		}
+
+		if (existingDocument.userId !== userId) {
+			throw new Error("Unauthorized");
+		}
+
+		const document = await ctx.db
+			.patch(args.id, {
+				icon: undefined,
+			})
+			.catch(() => {
+				throw new Error("Failed to delete icon");
+			});
+
 		return document;
 	},
 });
