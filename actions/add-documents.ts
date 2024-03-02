@@ -23,11 +23,10 @@ export async function removeCoverImage_Server(documentId: string) {
 	try {
 		const token = await getAuthToken();
 		if (!token) throw new Error("Unauthentication");
-		
+
 		const deletedImage = await fetchMutation(
 			api.documents.removeCoverImage,
-			{ id: documentId as Id<"documents"> },
-			{ token }
+			{ id: documentId as Id<"documents"> }
 		);
 
 		// revalidatePath(`/documents/${documentId}`);

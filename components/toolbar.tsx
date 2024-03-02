@@ -11,6 +11,7 @@ import { ElementRef, useRef, useState, useTransition } from "react";
 import { useDebounceCallback } from "usehooks-ts";
 import { toast } from "sonner";
 import { useCoverImage } from "@/hooks/use-cover-image";
+import { Skeleton } from "./ui/skeleton";
 
 interface ToolbarProps {
 	initialData: Preloaded<typeof api.documents.getById>;
@@ -28,7 +29,7 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
 	const [isEditing, setIsEditing] = useState(false);
 	const inputRef = useRef<ElementRef<"textarea">>(null);
 
-	if (!document) return <p className="pt-20">Loading...</p>;
+	if (!document) return null;
 
 	const enableEditing = () => {
 		if (preview) return;
@@ -152,6 +153,15 @@ export function Toolbar({ initialData, preview }: ToolbarProps) {
 					{document.title}
 				</div>
 			)}
+		</div>
+	);
+}
+
+export function ToolbarSkeleton() {
+	return (
+		<div className="flex space-x-4">
+			<Skeleton className="w-12 h-8" />
+			<Skeleton className="w-12 h-8" />
 		</div>
 	);
 }

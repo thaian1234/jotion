@@ -7,7 +7,7 @@ import { useCoverImage } from "@/hooks/use-cover-image";
 import { useEdgeStore } from "@/lib/edgestore";
 import { useMutation } from "convex/react";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { startTransition, useState } from "react";
 import { SingleImageDropzone } from "@/components/single-image-dropzone";
 import { toast } from "sonner";
 
@@ -26,18 +26,31 @@ export function CoverImageModal() {
 	};
 
 	const onChange = async (file?: File) => {
-		if (file) {
-			setIsSubmitting(true);
-			setFile(file);
+		if (!file) return;
 
-			const res = await edgestore.publicFiles.upload({ file });
-			await update({
+		setIsSubmitting(true);
+		setFile(file);
+
+		const res = await edgestore.publicFiles.upload({
+			file,
+			options: {
+				replaceTargetUrl: coverImage.url,
+			},
+		});
+
+		startTransition(() => {
+			update({
 				id: params.documentId as Id<"documents">,
 				coverImage: res.url,
-			});
-			toast.success("File uploaded");
-			onClose();
-		}
+			})
+				.then(() => {
+					toast.success("File uploaded");
+					onClose();
+				})
+				.catch(() => {
+					toast.error("Failed to upload image");
+				});
+		});
 	};
 
 	return (
