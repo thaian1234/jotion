@@ -28,13 +28,7 @@ export default async function DocumentsPage() {
 				className="hidden dark:block"
 				priority
 			/>
-			{/* {!isLoaded ? (
-				<Skeleton className="w-52 h-10" />
-			) : (
-				<h2 className="text-lg font-medium">
-					Welcome to {user?.firstName}&apos;s Jotion
-				</h2>
-			)} */}
+
 			<h2 className="text-lg font-medium">
 				Welcome to {user?.firstName}&apos;s Jotion
 			</h2>

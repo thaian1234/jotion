@@ -39,7 +39,7 @@ export const getSidebar = query({
 	},
 	async handler(ctx, args) {
 		const identity = await ctx.auth.getUserIdentity();
-		if (!identity) throw new Error("Unauthenticated");
+		if (!identity) return null;
 		const userId = identity.subject;
 
 		const document = await ctx.db
@@ -232,7 +232,7 @@ export const getById = query({
 		const identity = await ctx.auth.getUserIdentity();
 		const document = await ctx.db.get(args.documentId);
 
-		if (!document) return null;
+		if (!document) throw new Error("Not not found");
 
 		if (document.isPublished && !document.isArchived) {
 			return document;
@@ -241,6 +241,7 @@ export const getById = query({
 		if (!identity) {
 			return null;
 		}
+
 		const userId = identity.subject;
 		if (document.userId !== userId) return null;
 

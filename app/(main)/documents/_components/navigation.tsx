@@ -10,8 +10,14 @@ import {
 	Settings,
 	Trash,
 } from "lucide-react";
-import { useParams, usePathname } from "next/navigation";
-import { ElementRef, useEffect, useRef, useState } from "react";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import {
+	ElementRef,
+	startTransition,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./user-item";
 import { useMutation } from "convex/react";
@@ -30,6 +36,7 @@ import { useSettings } from "@/hooks/use-settings";
 import { Navbar } from "./navbar";
 
 export function Navigation() {
+	const router = useRouter();
 	const search = useSearch((state) => state);
 	const settings = useSettings((state) => state);
 	const pathname = usePathname();
@@ -119,13 +126,16 @@ export function Navigation() {
 	};
 
 	const handleCreateDocument = () => {
-		createDocument({ title: "Untitled" })
-			.then(() => {
-				toast.success("New note created");
-			})
-			.catch(() => {
-				toast.error("Failed to create a new note!");
-			});
+		startTransition(() => {
+			createDocument({ title: "Untitled" })
+				.then((id) => {
+					toast.success("New note created");
+					router.push(`/documents/${id}`);
+				})
+				.catch(() => {
+					toast.error("Failed to create a new note!");
+				});
+		});
 	};
 
 	return (

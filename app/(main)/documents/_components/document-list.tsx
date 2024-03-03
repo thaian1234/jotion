@@ -3,7 +3,7 @@
 import { api } from "@/convex/_generated/api";
 import { Doc, Id } from "@/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
-import { useParams, useRouter } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Item, ItemSkeleton } from "./item";
 import { cn } from "@/lib/utils";
@@ -50,6 +50,11 @@ export function DocumentList({
 				)}
 			</>
 		);
+	}
+
+	if (documents === null) {
+		router.replace("/");
+		return null;
 	}
 
 	return (

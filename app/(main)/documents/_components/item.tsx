@@ -24,7 +24,7 @@ import {
 	Trash,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { startTransition } from "react";
 import { toast } from "sonner";
 
 interface ItemProps {
@@ -67,13 +67,24 @@ export function Item({
 		// e.stopPropagation();
 		if (!id) return;
 
-		const promise = archive({ id });
-
-		toast.promise(promise, {
-			loading: "Removing to trash...",
-			success: "Note moved to trash",
-			error: "Failed to archive note",
+		startTransition(() => {
+			archive({ id })
+				.then(() => {
+					toast.success("Note moved to trash");
+					router.push(`/documents/${id}`);
+				})
+				.catch(() => {
+					toast.error("Failed to archive note");
+				});
 		});
+
+		// const promise = archive({ id });
+
+		// toast.promise(promise, {
+		// 	loading: "Removing to trash...",
+		// 	success: "Note moved to trash",
+		// 	error: "Failed to archive note",
+		// });
 	};
 
 	const onCreate = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

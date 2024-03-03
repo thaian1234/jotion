@@ -39,6 +39,8 @@ export function Banner({ documentId }: BannerProps) {
 		// 		return "Failed to delete note";
 		// 	},
 		// });
+		router.replace("/documents");
+
 		startTransition(() => {
 			remove({ id: documentId })
 				.then(() => {
@@ -48,8 +50,8 @@ export function Banner({ documentId }: BannerProps) {
 					if (e instanceof ConvexError) toast.error(e.data);
 				});
 		});
-		router.replace("/documents");
 	};
+
 	const onRestore = () => {
 		const promise = restore({ id: documentId });
 

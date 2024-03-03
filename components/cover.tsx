@@ -51,7 +51,7 @@ export function Cover({ initialData, preview }: CoverProps) {
 	return (
 		<div
 			className={cn(
-				"relative w-full h-[45vh] group",
+				"relative w-full h-[45vh] group aspect-video",
 				!url && "h-[12vh]",
 				url && "bg-muted"
 			)}
@@ -61,7 +61,9 @@ export function Cover({ initialData, preview }: CoverProps) {
 					src={url}
 					fill
 					alt="Cover"
-					className="object-cover aspect-video"
+					priority
+					sizes="50vw"
+					className="object-fill w-auto"
 				/>
 			)}
 			{url && !preview && (

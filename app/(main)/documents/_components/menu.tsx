@@ -29,9 +29,12 @@ export function Menu({ documentId }: MenuProps) {
 	const archive = useMutation(api.documents.archive);
 
 	const onArchive = () => {
+		if (!documentId) return;
+		
 		startTransition(() => {
 			archive({ id: documentId })
 				.then(() => {
+					router.push(`documents/${documentId}`);
 					toast.success("Note move to trash!");
 				})
 				.catch(() => {

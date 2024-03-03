@@ -8,6 +8,7 @@ import { notFound, useParams, useRouter } from "next/navigation";
 import { Title, TitleSkeleton } from "./title";
 import { Banner } from "./banner";
 import { Menu, MenuSkeleton } from "./menu";
+import { Publish } from "./publish";
 
 interface NavbarProps {
 	isCollapsed: boolean;
@@ -15,13 +16,12 @@ interface NavbarProps {
 }
 
 export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
-	const router = useRouter();
 	const params = useParams();
 	const document = useQuery(api.documents.getById, {
 		documentId: params.documentId as Id<"documents">,
 	});
 
-	if (document === null) return notFound();
+	if (document === null) notFound();
 
 	if (document === undefined)
 		return (
@@ -47,6 +47,7 @@ export function Navbar({ isCollapsed, onResetWidth }: NavbarProps) {
 				<div className="flex items-center justify-between w-full">
 					<Title initialData={document} />
 					<div className="flex items-center gap-x-2">
+						<Publish initialData={document} />
 						<Menu documentId={document._id} />
 					</div>
 				</div>

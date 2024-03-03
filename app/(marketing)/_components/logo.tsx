@@ -9,12 +9,14 @@ export function Logo() {
 				width={40}
 				height={40}
 				alt="Logo"
+				priority
 				className="dark:hidden"
 			/>
 			<Image
 				src="/logo-dark.svg"
 				width={40}
 				height={40}
+				priority
 				alt="Logo"
 				className="hidden dark:block"
 			/>

@@ -61,7 +61,7 @@ export function UserItem() {
 						variant={"ghost"}
 						size="icon"
 					>
-						<SignOutButton>Log out</SignOutButton>
+						<SignOutButton >Log out</SignOutButton>
 					</Button>
 				</DropdownMenuItem>
 			</DropdownMenuContent>

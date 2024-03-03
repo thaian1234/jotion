@@ -8,6 +8,7 @@ export function Heroes() {
 					<Image
 						src="/documents.png"
 						fill
+						sizes="50vw"
 						alt="Documents"
 						className="object-contain dark:hidden"
 						priority
@@ -15,6 +16,7 @@ export function Heroes() {
 					<Image
 						src="/documents-dark.png"
 						fill
+						sizes="50vw"
 						alt="Documents"
 						className="object-contain hidden dark:block"
 						priority
@@ -24,6 +26,7 @@ export function Heroes() {
 					<Image
 						src="/reading.png"
 						fill
+						sizes="50vw"
 						className="object-contain dark:hidden"
 						alt="Reading"
 						priority
@@ -31,6 +34,7 @@ export function Heroes() {
 					<Image
 						src="/reading-dark.png"
 						fill
+						sizes="50vw"
 						className="object-contain hidden dark:block"
 						alt="Reading"
 						priority

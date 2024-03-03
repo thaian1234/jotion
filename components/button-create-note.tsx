@@ -7,16 +7,19 @@ import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { Spinner } from "./spinner";
 import { PlusCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function ButtonCreateNote() {
+	const router = useRouter();
 	const create = useMutation(api.documents.createDocument);
 	const [isPending, startTransition] = useTransition();
 
 	const handleCreateDocument = () => {
 		startTransition(() => {
 			create({ title: "Untitled" })
-				.then(() => {
+				.then((id) => {
 					toast.success("New note created");
+					router.push(`/documents/${id}`);
 				})
 				.catch((e: Error) => {
 					toast.error(e.message);
